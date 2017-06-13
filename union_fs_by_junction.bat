@@ -2,7 +2,7 @@
 
 rem Вход:
 rem 	1 - VOLUMES_FOLDER: папка, в которой сделаны mount point's на все разделы всех дисков
-rem 	2 - MAIN_FOLDER: Главная папка для unionfs, в которой будут создаваться junctions. Должна быть поддиректорией папки Volumes
+rem 	2 - MAIN_FOLDER: Главная папка для unionfs, в которой будут создаваться junctions. Должна быть поддиректорией папки Volumes. Указывается относительно VOLUMES_FOLDER
 rem 	3 - EXCEPT_VOLUME: 
 rem Выход:
 rem 	В MAIN_FOLDER созданы junctions на все директории вида:
@@ -11,12 +11,16 @@ rem 		В случае, если есть несколько дирректори
 rem 	Другие Junction в MAIN_FOLDER удалены
 rem Todo:
 rem 	- Добавить автоматическое вычисление EXCEPT_VOLUME
-rem 	- Сделать более понятную документацию
+rem 	- Написать документацию
 rem		- Перевести на английский
 
 call :main %*
 echo End 
 exit /b %errorlevel%
+
+
+rem удалить все junctions из дирректории, которая указывается в качестве парраметра. Пример использования:
+rem    call :remove_junctions %MAIN_FOLDER%
 :remove_junctions
 	set FOLDER_WITH_JUNCTIONS=%*
 	echo FOLDER_WITH_JUNCTIONS=%FOLDER_WITH_JUNCTIONS%
@@ -34,7 +38,8 @@ exit /b %errorlevel%
 	rem set VOLUMES_FOLDER=%~1
 	set VOLUMES_FOLDER=c:\Volumes\medved
 	rem set MAIN_FOLDER=%~2
-	set MAIN_FOLDER=c:\Volumes\medved\0 - XPWork\Medvedevy\DmitryMedvedev
+	set MAIN_FOLDER=0 - XPWork\Medvedevy\DmitryMedvedev
+	set MAIN_FOLDER=%VOLUMES_FOLDER%\%MAIN_FOLDER%
 	rem set EXCEPT_VOLUME=%~3
 	set EXCEPT_VOLUME=3 - System2016
 	
