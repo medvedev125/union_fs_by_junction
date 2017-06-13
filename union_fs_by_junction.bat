@@ -32,16 +32,14 @@ rem    call :remove_junctions %MAIN_FOLDER%
 	exit /b %errorlevel%
 	
 :main
-
 	setlocal ENABLEEXTENSIONS
 
-	rem set VOLUMES_FOLDER=%~1
-	set VOLUMES_FOLDER=c:\Volumes\medved
-	rem set MAIN_FOLDER=%~2
-	set MAIN_FOLDER=0 - XPWork\Medvedevy\DmitryMedvedev
+	set VOLUMES_FOLDER=%~1
+
+	set MAIN_FOLDER=%~2
 	set MAIN_FOLDER=%VOLUMES_FOLDER%\%MAIN_FOLDER%
-	rem set EXCEPT_VOLUME=%~3
-	set EXCEPT_VOLUME=3 - System2016
+
+	set EXCEPT_VOLUME=%~3
 	
 	if "%VOLUMES_FOLDER%"=="" goto IncorrectArgsError
 	if "%MAIN_FOLDER%"=="" goto IncorrectArgsError
