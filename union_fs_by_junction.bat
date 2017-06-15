@@ -1,4 +1,5 @@
-﻿@echo off
+﻿
+@echo off
 
 rem Вход:
 rem 	1 - VOLUMES_FOLDER: папка, в которой сделаны mount point's на все разделы всех дисков
@@ -23,7 +24,7 @@ rem удалить все junctions из дирректории, которая 
 rem    call :remove_junctions %MAIN_FOLDER%
 :remove_junctions
 	set FOLDER_WITH_JUNCTIONS=%*
-	echo FOLDER_WITH_JUNCTIONS=%FOLDER_WITH_JUNCTIONS%
+	rem echo FOLDER_WITH_JUNCTIONS=%FOLDER_WITH_JUNCTIONS%
 	for /f "tokens=*" %%I in ('dir "%FOLDER_WITH_JUNCTIONS%" /A:L /B') do (
 		set TARGET=%FOLDER_WITH_JUNCTIONS%\%%I
 		if not exist "!TARGET!" goto TargetNotExistsError
@@ -58,11 +59,11 @@ rem    call :remove_junctions %MAIN_FOLDER%
 	if not "%errorlevel%"=="0" goto RemoveJunctionsError
 
 	rem create junctions
-	echo MAIN_FOLDER_VOLUME=%MAIN_FOLDER_VOLUME%
+	rem echo MAIN_FOLDER_VOLUME=%MAIN_FOLDER_VOLUME%
 	rem echo MAIN_FOLDER_SUBFOLDER=%MAIN_FOLDER_SUBFOLDER%
 	for /f "tokens=*" %%I in ('dir "%VOLUMES_FOLDER%" /A:L /B') do (
 		set CURRENT_VOLUME=%%I
-		echo CURRENT_VOLUME=!CURRENT_VOLUME!
+		rem echo CURRENT_VOLUME=!CURRENT_VOLUME!
 		if not "!CURRENT_VOLUME!"=="%MAIN_FOLDER_VOLUME%" (
 			if not "!CURRENT_VOLUME!"=="%EXCEPT_VOLUME%" (
 				for /f "tokens=*" %%X in ('dir /B /A:D "%VOLUMES_FOLDER%\!CURRENT_VOLUME!\%MAIN_FOLDER_SUBFOLDER%"') do (
@@ -79,7 +80,7 @@ rem    call :remove_junctions %MAIN_FOLDER%
 		)
 	)
 
-	echo End main
+	rem echo End main
 	exit /b %errorlevel%
 
 :TargetNotExistsError
